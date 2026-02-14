@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Khushi 🌷</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --primary: #ff4d6d;
+    --secondary: #ff8fa3;
+    --bg-start: #ffb3c1;
+    --bg-end: #fff0f3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+    font-family: 'Fredoka', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* FLOATING BACKGROUND ELEMENTS */
+  .floating-bg {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: floatUp linear infinite;
+    z-index: 0;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* GLASS CARD (Main Container) */
+  .card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 30px;
+    padding: 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 50px rgba(255, 77, 109, 0.2);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s;
+    z-index: 10;
+    position: absolute;
+  }
+
+  .hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.5) translateY(50px);
+  }
+
+  .visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  /* TYPOGRAPHY */
+  h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    line-height: 1.3;
+    text-shadow: 2px 2px 0px rgba(255, 200, 221, 0.5);
+  }
+
+  .name { color: #d90429; font-size: 2.4rem; display: block; }
+  p { color: #590d22; font-size: 1.1rem; margin-bottom: 25px; line-height: 1.5; }
+
+  .emoji-big {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    display: inline-block;
+    animation: bounce 2s infinite ease-in-out;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  /* BUTTONS */
+  .btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  button {
+    padding: 12px 28px;
+    border-radius: 50px;
+    border: none;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .yes-btn { background: var(--primary); color: white; }
+  .yes-btn:hover { transform: scale(1.05); }
+  
+  .no-btn { background: white; color: var(--primary); border: 2px solid var(--primary); }
+
+  /* 💌 ENVELOPE STYLES (THE MAGIC PART) 💌 */
+  .envelope-wrapper {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    margin: 50px auto 20px;
+    background: #ff4d6d;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+
+  /* The Flap (Top Triangle) */
+  .envelope-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 110px solid #ff758f; /* Lighter pink */
+    transform-origin: top;
+    transition: transform 0.6s ease-in-out;
+    z-index: 5;
+  }
+
+  /* The Pocket (Bottom Triangle) */
+  .envelope-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-bottom: 110px solid #ff5d7a;
+    z-index: 4;
+    border-radius: 0 0 10px 10px;
+    pointer-events: none; /* Let clicks pass through to letter */
+  }
+
+  /* The Letter Inside */
+  .letter {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    width: 250px;
+    height: 160px;
+    background: white;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.8s ease-in-out;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .letter p {
+    font-size: 0.9rem;
+    color: #590d22;
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  .letter .highlight {
+    font-weight: bold;
+    color: var(--primary);
+  }
+
+  /* OPEN ANIMATION STATE */
+  .envelope-wrapper.open::before {
+    transform: rotateX(180deg);
+    z-index: 1; /* Flap goes behind */
+  }
+
+  .envelope-wrapper.open .letter {
+    transform: translateY(-130px); /* Slides up */
+    z-index: 6; /* Slides over the pocket */
+  }
+
+  /* POPUP OVERLAY STYLES */
+  #final-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
+
+  #final-overlay.show { opacity: 1; pointer-events: all; }
+  
+  #final-overlay h1 {
+    font-size: 3.5rem;
+    color: #fff;
+    text-shadow: 0 0 20px #ff4d6d;
+    text-align: center;
+  }
+  
+  .overlay-emoji {
+    font-size: 8rem;
+    margin-top: 20px;
+    animation: heartbeat 1.5s infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .tap-hint {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+    animation: blink 2s infinite;
+  }
+  @keyframes blink { 50% { opacity: 0.5; } }
+
+</style>
+</head>
+<body>
+
+  <div class="card visible" id="page1">
+    <div class="emoji-big">😻🌷</div>
+    
+    <h1>Hi <span class="name">Khushi!</span> 🌷</h1>
+    <p>I have a very serious question...<br>Will you be my Valentine?</p>
+    
+    <div class="btn-group">
+      <button class="yes-btn" id="yesBtn">YES! 😻</button>
+      <button class="no-btn" id="noBtn">No</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="page2">
+    <div class="emoji-big">😽🎉</div>
+
+    <h1>YAAAAAY! 🎉</h1>
+    <p>I knew you'd say yes! (Eventually 😉)<br>You just made me the happiest person.</p>
+    
+    <button class="yes-btn" id="nextBtn">Open Gift ➡️</button>
+  </div>
+
+  <div class="card hidden" id="page3">
+    
+    <h1>My Promise 💍</h1>
+    <p class="tap-hint">(Tap the envelope!)</p>
+
+    <div class="envelope-wrapper" onclick="openEnvelope()">
+      <div class="letter">
+        <p>"I promise to be your biggest fan, your snack partner, and your safe place.<br><br>I will annoy you with love, today and <span class="highlight">forever.</span>"</p>
+      </div>
+    </div>
+
+    <button class="yes-btn" onclick="finalCelebration()">Love You! ❤️</button>
+  </div>
+
+  <div id="final-overlay">
+      <h1>I Love You,<br>Khushi! 💖</h1>
+      <div class="overlay-emoji">👩‍❤️‍👨</div>
+  </div>
+
+<script>
+  /* --- LOGIC & INTERACTIVITY --- */
+  
+  const page1 = document.getElementById('page1');
+  const page2 = document.getElementById('page2');
+  const page3 = document.getElementById('page3');
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const finalOverlay = document.getElementById('final-overlay');
+  
+  let yesScale = 1; 
+
+  /* BACKGROUND GENERATOR */
+  function createFloatingElement() {
+    const el = document.createElement('div');
+    el.classList.add('floating-bg');
+    el.innerText = ['🌷', '🌸', '🌹', '❤️', '✨', '😻'][Math.floor(Math.random() * 6)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.animationDuration = (Math.random() * 10 + 10) + 's'; 
+    document.body.appendChild(el);
+    setTimeout(() => { el.remove(); }, 20000);
+  }
+  
+  setInterval(createFloatingElement, 800);
+
+  /* RUNAWAY NO BUTTON LOGIC */
+  function moveNoBtn() {
+    yesScale += 0.15;
+    yesBtn.style.transform = `scale(${yesScale})`;
+    
+    const maxX = window.innerWidth - noBtn.offsetWidth - 40;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+    
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = 'fixed'; 
+    noBtn.style.left = randomX + 'px';
+    noBtn.style.top = randomY + 'px';
+  }
+
+  noBtn.addEventListener('mouseenter', moveNoBtn);
+  noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    moveNoBtn();
+  });
+
+  /* PAGE NAVIGATION */
+  yesBtn.addEventListener('click', () => {
+    page1.classList.replace('visible', 'hidden');
+    page2.classList.replace('hidden', 'visible');
+    launchConfetti();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    page2.classList.replace('visible', 'hidden');
+    page3.classList.replace('hidden', 'visible');
+  });
+
+  /* ENVELOPE OPEN LOGIC */
+  function openEnvelope() {
+    const envelope = document.querySelector('.envelope-wrapper');
+    envelope.classList.toggle('open');
+  }
+
+  /* FINAL CELEBRATION */
+  function finalCelebration() {
+    launchConfetti();
+    finalOverlay.classList.add('show');
+  }
+
+  /* CONFETTI EFFECT */
+  function launchConfetti() {
+    for (let i = 0; i < 50; i++) {
+      const c = document.createElement('div');
+      c.style.position = 'absolute';
+      c.style.width = '10px';
+      c.style.height = '10px';
+      c.style.backgroundColor = ['#ff4d6d', '#ff8fa3', '#fff0f3', '#ffd700'][Math.floor(Math.random() * 4)];
+      c.style.left = '50%';
+      c.style.top = '50%';
+      c.style.borderRadius = '50%';
+      c.style.zIndex = '10000'; 
+      document.body.appendChild(c);
+
+      const angle = Math.random() * Math.PI * 2;
+      const velocity = 5 + Math.random() * 10;
+      const tx = Math.cos(angle) * velocity * 20;
+      const ty = Math.sin(angle) * velocity * 20;
+
+      c.animate([
+        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+        { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+      ], {
+        duration: 1000 + Math.random() * 1000,
+        easing: 'cubic-bezier(0, .9, .57, 1)',
+        fill: 'forwards'
+      }).onfinish = () => c.remove();
+    }
+  }
+</script>
+</body>
+</html>
